@@ -1,8 +1,8 @@
 language: julia
 os:
-  - linux
+- linux
 julia:
-  - 0.6
+- 1.0
 notifications:
   email: false
 git:
@@ -10,28 +10,23 @@ git:
 cache:
   timeout: 1000
   directories:
-    - downloads
+  - downloads
 env:
   global:
-    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
-    - BINARYBUILDER_AUTOMATIC_APPLE=true
+  - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+  - BINARYBUILDER_AUTOMATIC_APPLE=true
 sudo: required
-
-# Before anything else, get the latest versions of things
 before_script:
-  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
-  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
-
+- julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
 script:
-  - julia build_tarballs.jl
-
+- julia  --color=yes build_tarballs.jl
 deploy:
   provider: releases
   api_key:
-    secure: atIn8vKDcx0GJK3Zpo4tgHNYLzAkkL0vFnqiZ1OgonAg/V4lw5BD/tTMZSDCBGyZnEsMd4rL008YKAriCdajyQz1TuLG7Z8iv6dvXRyUCbCZLcWnjLHJpCY5qXXWEdEFpQhk3pOun5oHg2C/a9MPGSTbZ9gXYItpPnO94Xn6Mlw91kZ4TtNRp8TMlcNPZFYjMfjUvliJECFP+EjWtmChnRgp7LJjlHKZYQPyzkwiN+LryAcytx2kcAVzVb6af/RWZpkHz3UHYedxJg1K1LCKN6reVbdGkRGWnaKhOavufaqeanVpThLwgRsW9ghBW4Gye5wq19R3BJ0oeUTUuteu1V8qdnBfUzhbsAS4+dC9v0/1Y5h00QL8VB5IaaONyjrtGjHeOdi51LQ0gbwHqt7I3TWvx7ZUuJ6SKx5zIg2dUVUznp0ZPFlDpe+3wpkQaP2vsrHm7yHq0McQKOAE7JFt8JaM0Qkxw88ci1nTLJvqWEnNBXU30G49wVsFWLQHHAgQD67ZhBMaD4/MtzKFXG+m6hZmzcSdV7W9GqiPzvw/4dbCdfnmZsz8ABCD+E7fiRONnz+QdPbp31D+AcIgUSB/Rdw63E/x6Piw6YUoVONrwuLif3UBMj4YYBV11JwJvwQpxx+vDn8QHOeb/PFE01s/ZQfJn1Y7DO84+4dPFS3rYpY=
+    secure: kBnnjB+2pnWqZyb8ZsfM/zVFzSv+Ps/VNd2rBBPnBy5vqFbl0DWUbfEVFTDswr4RAXeWPxw8+tVxYX94145XXTSuG0un75AClWWC/yIECCknXsECWqjR5L3W7t6Fo2zu4V5kkRw1aGKL+a8ca6WrZyHwyxfQ2PTWFP9vNZtbNR9XMEAZfJY3mQuYSGKbJbi1C0u/6LPgChgA8A4ovm6Fp87YQdonecxGYcgyLvh1ihPR2FFtdUIKaZed8QOzQIdDvqbrwLFSn68rPXZd5dgFz2ebJDP/MgOnlrlXuzsOm+yMpC+MipU36dYclNX05T00bRCDiXsW9s0lGuojBCBLjsMjJXJElnAeSlkrjLYEmZ0yyTl86NH/PIHGlqrKuVlrhmzrAmLiFcadb3PTyWuayk0UAESzX+VyRwpKr/dj+y3ogWXrmIB2mgnZd/+cKp4rgRCHNqibjWFPnHPMocobPSz4q377jRm8a79ttfonUpYVUVVzqmI5aEBH7bHSZDJ0V4qWINrU+2O0ao7r+wrMbRAz1B0Dsia157vwZ6b/Drb/TN/4bZ5YWykVbgpF8p4TK7XYU8it5/pF6i1KfTpgaUi+cO+Ls0soTRkbYZ/Y3QI38tIDCAl14ZX5n4QX13eG0CLXQQq95bGAIJZbayzaHXu1VDJKw5svRzxcZ9VRe1A=
   file_glob: true
   file: products/*
   skip_cleanup: true
   on:
-    repo: bicycle1885/XML2Builder
+    repo: benlorenz/XML2Builder
     tags: true

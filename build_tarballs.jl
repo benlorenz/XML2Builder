@@ -1,10 +1,10 @@
 using BinaryBuilder
 
-version = v"2.9.7"
+version = v"2.9.9"
 
 sources = [
     "https://github.com/GNOME/libxml2/archive/v$(version).tar.gz" =>
-        "a7b52278afca823d263deb8b4b33710735f1b5208a351173b2deb78a6d936412",
+        "d673f0284cec867ee00872a8152e0c3c09852f17fd9aa93f07579a37534f0bfe",
 ]
 
 script = raw"""
@@ -21,7 +21,7 @@ products(prefix) = [
 platforms = supported_platforms()
 
 dependencies = [
-    "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.2/build_Zlib.v1.2.11.jl",
+    "https://github.com/bicycle1885/ZlibBuilder/releases/download/v1.0.3/build_Zlib.v1.2.11.jl",
 ]
 
 build_tarballs(ARGS, "XML2Builder", version, sources, script, platforms, products, dependencies)
